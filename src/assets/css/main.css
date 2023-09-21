@@ -1,0 +1,6 @@
+@import './cmps/ToyIndex.css';
+@import './cmps/ToyList.css';
+@import './cmps/ToyFilter.css';
+@import './cmps/ToySort.css';
+
+@import 'base/base.css';

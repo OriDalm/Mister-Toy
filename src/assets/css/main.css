@@ -2,5 +2,7 @@
 @import './cmps/ToyList.css';
 @import './cmps/ToyFilter.css';
 @import './cmps/ToySort.css';
+@import './cmps/AppHeader.css';
 
 @import 'base/base.css';
+@import 'base/layout.css';

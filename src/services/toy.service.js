@@ -12,6 +12,7 @@ export const toyService = {
   save,
   getEmptyToy,
   getToyLabels,
+  getLabelCounts,
 }
 
 function query(filterBy = {}, sortBy) {
@@ -82,4 +83,27 @@ function _createToys() {
 
 function getToyLabels() {
   return labels
+}
+
+function getLabelCounts() {
+  return storageService.query(STORAGE_KEY).then((toys) => {
+    const labelCounts = {}
+
+    toys.forEach((toy) => {
+      toy.labels.forEach((label) => {
+        if (labelCounts[label]) {
+          labelCounts[label]++
+        } else {
+          labelCounts[label] = 1
+        }
+      })
+    })
+
+    const labelCountArray = Object.entries(labelCounts).map(([label, count]) => ({
+      label,
+      count,
+    }))
+
+    return labelCountArray
+  })
 }

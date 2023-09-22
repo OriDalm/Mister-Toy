@@ -29,7 +29,6 @@ function query(filterBy = {}, sortBy) {
     }
 
     if (filterBy.labels && filterBy.labels.length > 0) {
-      console.log('labels')
       filteredToys = filteredToys.filter((toy) => filterBy.labels.every((label) => toy.labels.includes(label)))
     }
     filteredToys = utilService.getSortedToys(filteredToys, sortBy)

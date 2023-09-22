@@ -15,40 +15,23 @@ export const toyService = {
   getLabelCounts,
 }
 
-function query(filterBy = {}, sortBy) {
-  return storageService.query(STORAGE_KEY).then((toys) => {
-    let filteredToys = toys
-
-    if (filterBy.name) {
-      const regExp = new RegExp(filterBy.name, 'i')
-      filteredToys = filteredToys.filter((toy) => regExp.test(toy.name))
-    }
-
-    if (filterBy.inStock !== '') {
-      filteredToys = filteredToys.filter((toy) => (filterBy.inStock === 'true' ? toy.inStock : !toy.inStock))
-    }
-
-    if (filterBy.labels && filterBy.labels.length > 0) {
-      filteredToys = filteredToys.filter((toy) => filterBy.labels.every((label) => toy.labels.includes(label)))
-    }
-    filteredToys = utilService.getSortedToys(filteredToys, sortBy)
-    return filteredToys
-  })
+function query(filterBy, sort) {
+  return httpService.get('toy', { params: { filterBy, sort } })
 }
 
 function getById(toyId) {
-  return storageService.get(STORAGE_KEY, toyId)
+  return httpService.get(`toy/${toyId}`)
 }
 
 function remove(toyId) {
-  return storageService.remove(STORAGE_KEY, toyId)
+  return httpService.delete(`toy/${toyId}`)
 }
 
 function save(toy) {
   if (toy._id) {
-    return storageService.put(STORAGE_KEY, toy)
+    return httpService.put(`toy/${toy._id}`, toy)
   } else {
-    return storageService.post(STORAGE_KEY, toy)
+    return httpService.post('toy', toy)
   }
 }
 
@@ -85,7 +68,7 @@ function getToyLabels() {
 }
 
 function getLabelCounts() {
-  return storageService.query(STORAGE_KEY).then((toys) => {
+  return httpService.get('toy', { params: { filterBy, sort } }).then((toys) => {
     const labelCounts = {}
 
     toys.forEach((toy) => {

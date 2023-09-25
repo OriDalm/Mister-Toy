@@ -4,10 +4,19 @@ import { showErrorMsg } from '../services/event-bus.service.js'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { MultiSelect } from '../cmps/MultiSelect.jsx'
-import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
+import { Button, TextField } from '@mui/material'
+
+function CustomInput(props) {
+  return <TextField {...props} id='outlined-basic' variant='outlined' />
+}
 
 export function ToyEdit() {
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('Required'),
+    price: Yup.string().required('Required'),
+  })
   const [toyToEdit, setToyToEdit] = useState(toyService.getEmptyToy())
   const [selectedLabels, setSelectedLabels] = useState([])
   const navigate = useNavigate()
@@ -22,7 +31,7 @@ export function ToyEdit() {
       .getById(params.toyId)
       .then((toy) => {
         setToyToEdit(toy)
-        setSelectedLabels(toy.labels || []) // Set selected labels
+        setSelectedLabels(toy.labels || [])
       })
       .catch((err) => {
         console.log('Had issued in toy edit:', err)
@@ -36,6 +45,7 @@ export function ToyEdit() {
   }
 
   const handleChange = (e) => {
+    console.log(e.target.value)
     const { name, value } = e.target
     setToyToEdit({
       ...toyToEdit,
@@ -43,12 +53,15 @@ export function ToyEdit() {
     })
   }
 
-  function onSaveToy(ev) {
-    ev.preventDefault()
+  function onSaveToy(values) {
+    console.log('Form values:', values)
+
     toyService
       .save({
         ...toyToEdit,
-        labels: selectedLabels, // Save selected labels
+        name: values.name,
+        price: values.price,
+        labels: selectedLabels,
       })
       .then(() => navigate('/toy'))
       .catch((err) => {
@@ -58,16 +71,28 @@ export function ToyEdit() {
   const { name, price } = toyToEdit
 
   return (
-    <section className='toy-edit'>
-      <form onSubmit={onSaveToy}>
-        <label>Toy name</label>
-        <input type='text' name='name' value={name} onChange={handleChange} />
-        <label>Price</label>
-        <input type='number' name='price' value={price} onChange={handleChange} />
+    <div className='toy-edit'>
+      <Formik
+        initialValues={{
+          name: '',
+          price: '',
+        }}
+        validationSchema={SignupSchema}
+        onSubmit={onSaveToy}
+      >
+        {({ errors, touched }) => (
+          <Form className='formik'>
+            <label>Toy name</label>
+            <Field as={CustomInput} type='text' name='name' />
+            {errors.name && touched.name && <div>{errors.name}</div>}
+            <label>Price</label>
+            <Field type='number' name='price' />
 
-        <MultiSelect selectedLabels={selectedLabels} setSelectedLabels={setSelectedLabels} />
-        <button type='submit'>{params.toyId ? 'Update' : 'Add'} Toy</button>
-      </form>
-    </section>
+            <MultiSelect selectedLabels={selectedLabels} setSelectedLabels={setSelectedLabels} />
+            <button type='submit'>{params.toyId ? 'Update' : 'Add'} Toy</button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   )
 }

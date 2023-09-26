@@ -53,6 +53,10 @@ export function ToyEdit() {
     })
   }
 
+  function getYesNo() {
+    return toyToEdit.inStock
+  }
+
   function onSaveToy(values) {
     console.log('Form values:', values)
 
@@ -62,6 +66,7 @@ export function ToyEdit() {
         name: values.name,
         price: values.price,
         labels: selectedLabels,
+        inStock: toyToEdit.inStock === 'true' ? true : false,
       })
       .then(() => navigate('/toy'))
       .catch((err) => {
@@ -82,13 +87,19 @@ export function ToyEdit() {
       >
         {({ errors, touched }) => (
           <Form className='formik'>
-            <label>Toy name</label>
-            <Field as={CustomInput} type='text' name='name' />
+            <Field as={CustomInput} type='text' name='name' placeholder='Name' />
             {errors.name && touched.name && <div>{errors.name}</div>}
-            <label>Price</label>
-            <Field type='number' name='price' />
+            <Field as={CustomInput} type='number' name='price' placeholder='Price' />
 
             <MultiSelect selectedLabels={selectedLabels} setSelectedLabels={setSelectedLabels} />
+            <select value={getYesNo() || '1'} onChange={handleChange} name='inStock' className='edit-input'>
+              <option value={'1'} disabled>
+                In Stock
+              </option>
+              <option value='true'>Yes</option>
+              <option value='false'>No</option>
+            </select>
+
             <button type='submit'>{params.toyId ? 'Update' : 'Add'} Toy</button>
           </Form>
         )}

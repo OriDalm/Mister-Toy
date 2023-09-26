@@ -27,7 +27,7 @@ export function ToyDetails() {
     <section className='toy-details'>
       <h1>Toy: {toy.name} </h1>
       <h3>price: {toy.price}</h3>
-      <h5>{toy.labels}</h5>
+      <h5>{Array.isArray(toy.labels) ? toy.labels.join(', ') : toy.labels}</h5>
       <h3>{toy.inStock}</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem, placeat

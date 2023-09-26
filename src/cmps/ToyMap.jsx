@@ -11,7 +11,7 @@ export function ToyMap() {
   const [map, setMap] = useState()
 
   return (
-    <LoadScript id='script-loader' googleMapsApiKey='API_KEY_HERE'>
+    <LoadScript id='script-loader' googleMapsApiKey='API_KEY'>
       <div className='App-map' style={{ height: '400px', width: '100%' }}>
         <GoogleMap
           options={{

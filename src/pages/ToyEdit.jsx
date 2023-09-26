@@ -45,7 +45,6 @@ export function ToyEdit() {
   }
 
   const handleChange = (e) => {
-    console.log(e.target.value)
     const { name, value } = e.target
     setToyToEdit({
       ...toyToEdit,
@@ -58,8 +57,6 @@ export function ToyEdit() {
   }
 
   function onSaveToy(values) {
-    console.log('Form values:', values)
-
     toyService
       .save({
         ...toyToEdit,

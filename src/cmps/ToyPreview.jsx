@@ -41,7 +41,7 @@ export function ToyPreview({ toy, onRemoveToy }) {
           {toy.inStock ? <p className='toy-stock'>In Stock</p> : <p className='toy-stock'>Out of Stock</p>}
         </div>
         <p>
-          <span>${toy.price.toLocaleString()}</span>
+          <span className='toy-price'>${toy.price.toLocaleString()}</span>
         </p>
         <div className='label-container'>
           {Array.isArray(toy.labels) &&

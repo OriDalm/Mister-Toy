@@ -39,10 +39,11 @@ export function ToyIndex() {
 
   return (
     <div>
-      <h3>Toys App</h3>
       <main>
-        <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-        <ToySort sortBy={sortBy} setSortBy={setSortBy} />
+        <div className='filter-sort-container'>
+          <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+          <ToySort sortBy={sortBy} setSortBy={setSortBy} />
+        </div>
         <Link className='add-toy' to='/toy/edit'>
           Add Toy
         </Link>

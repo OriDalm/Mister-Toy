@@ -18,7 +18,13 @@
     gap: 20px;
   }
   
+  .filter-sort-container {
+    display: flex;
+  }
+
   .add-toy {
+    width: 250px;
+    display: inline;
     background-color: #007bff;
     color: white;
     padding: 10px 20px;

@@ -37,7 +37,6 @@ function save(toy) {
 }
 
 function getEmptyToy() {
-  console.log()
   return {
     _id: '',
     name: '',

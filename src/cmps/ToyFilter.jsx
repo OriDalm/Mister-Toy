@@ -7,8 +7,16 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import ListItemText from '@mui/material/ListItemText'
-import Select from '@mui/material/Select'
+// import Select from '@mui/material/Select'
 import Checkbox from '@mui/material/Checkbox'
+import { Formik, Form, Field } from 'formik'
+import { TextField } from '@mui/material'
+import Select from '@mui/material/Select'
+import Box from '@mui/material/Box'
+
+function CustomInput(props) {
+  return <TextField {...props} id='outlined-basic' variant='outlined' />
+}
 
 export function ToyFilter({ filterBy, onSetFilter }) {
   const [filterByToEdit, setFilterByToEdit] = useState({ name: '', inStock: '', labels: [], ...filterBy })
@@ -32,8 +40,6 @@ export function ToyFilter({ filterBy, onSetFilter }) {
   }, [filterByToEdit])
 
   function handleChange({ target }) {
-    console.log('just target', target)
-
     const field = target.name
     let value = target.value
 
@@ -66,40 +72,41 @@ export function ToyFilter({ filterBy, onSetFilter }) {
 
   return (
     <section className='toy-filter'>
-      <form onSubmit={onSubmitFilter}>
-        <div className='filter-input-wrapper'>
-          <input type='text' name='name' id='name' placeholder='By name' value={name} onChange={handleChange} />
-          <select id='inStock' value={inStock} name='inStock' onChange={handleChange}>
-            <option value=''>All</option>
-            <option value='true'>In stock</option>
-            <option value='false'>Not in stock</option>
-          </select>
+      <div className='filter-input-wrapper flex'>
+        <FormControl as={CustomInput} type='text' name='name' id='name' placeholder='By name' value={name} onChange={handleChange}></FormControl>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id='demo-simple-select-label'>Stock</InputLabel>
+            <Select labelId='demo-simple-select-label' id='demo-simple-select' value={inStock} label='Stock' name='inStock' onChange={handleChange}>
+              <MenuItem value=''>All</MenuItem>
+              <MenuItem value='true'>In stock</MenuItem>
+              <MenuItem value='false'>Not in stock</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
-          <div>
-            <FormControl sx={{ m: 1, width: 300 }}>
-              <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
-              <Select
-                labelId='demo-multiple-checkbox-label'
-                id='demo-multiple-checkbox'
-                multiple
-                name='labels'
-                value={labels}
-                onChange={handleChange}
-                input={<OutlinedInput label='Tag' />}
-                renderValue={(selected) => selected.join(', ')}
-                MenuProps={MenuProps}
-              >
-                {toyLabels.map((toyLabel) => (
-                  <MenuItem key={toyLabel} value={toyLabel}>
-                    <Checkbox checked={labels.indexOf(toyLabel) > -1} />
-                    <ListItemText primary={toyLabel} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-        </div>
-      </form>
+        <FormControl sx={{ m: 1, width: 300 }}>
+          <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
+          <Select
+            labelId='demo-multiple-checkbox-label'
+            id='demo-multiple-checkbox'
+            multiple
+            name='labels'
+            value={labels}
+            onChange={handleChange}
+            input={<OutlinedInput label='Tag' />}
+            renderValue={(selected) => selected.join(', ')}
+            MenuProps={MenuProps}
+          >
+            {toyLabels.map((toyLabel) => (
+              <MenuItem key={toyLabel} value={toyLabel}>
+                <Checkbox checked={labels.indexOf(toyLabel) > -1} />
+                <ListItemText primary={toyLabel} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
     </section>
   )
 }

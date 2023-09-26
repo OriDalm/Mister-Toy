@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 export function ToyPreview({ toy }) {
   return (
     <article className='toy-preview'>
+      <img src={`https://robohash.org/${toy.name}?set=set1`} alt='' />
+
       <h4>{toy.name}</h4>
       <div>{toy.inStock ? <p>In Stock</p> : <p>Out of Stock</p>}</div>
       <p>

@@ -9,9 +9,10 @@ const positions = [
 ]
 export function ToyMap() {
   const [map, setMap] = useState()
+  const API_KEY = import.meta.env.GOOGLE_MAP_API
 
   return (
-    <LoadScript id='script-loader' googleMapsApiKey='API_KEY'>
+    <LoadScript id='script-loader' googleMapsApiKey={API_KEY}>
       <div className='App-map' style={{ height: '400px', width: '100%' }}>
         <GoogleMap
           options={{

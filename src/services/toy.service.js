@@ -2,8 +2,8 @@ import { storageService } from './async-storage.service.js'
 import { httpService } from './http.service.js'
 import { utilService } from './util.service.js'
 
-const STORAGE_KEY = 'toyDB'
-_createToys()
+// const STORAGE_KEY = 'toyDB'
+// _createToys()
 const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered']
 
 export const toyService = {
@@ -37,6 +37,7 @@ function save(toy) {
 }
 
 function getEmptyToy() {
+  console.log()
   return {
     _id: '',
     name: '',
@@ -47,22 +48,22 @@ function getEmptyToy() {
   }
 }
 
-function _createToys() {
-  let toys = utilService.loadFromStorage(STORAGE_KEY)
-  if (!toys || !toys.length) {
-    toys = [
-      {
-        _id: 'n101',
-        name: 'Talking Doll',
-        price: 123,
-        labels: ['Doll', 'Battery Powered', 'Baby'],
-        createdAt: 1631031801011,
-        inStock: true,
-      },
-    ]
-    utilService.saveToStorage(STORAGE_KEY, toys)
-  }
-}
+// function _createToys() {
+//   let toys = utilService.loadFromStorage(STORAGE_KEY)
+//   if (!toys || !toys.length) {
+//     toys = [
+//       {
+//         _id: 'n101',
+//         name: 'Talking Doll',
+//         price: 123,
+//         labels: ['Doll', 'Battery Powered', 'Baby'],
+//         createdAt: 1631031801011,
+//         inStock: true,
+//       },
+//     ]
+//     utilService.saveToStorage(STORAGE_KEY, toys)
+//   }
+// }
 
 function getToyLabels() {
   return labels

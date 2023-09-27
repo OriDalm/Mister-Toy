@@ -1,19 +1,15 @@
 .app-header {
   background-image: linear-gradient(-86deg, #1d8ecf 0, rgb(132, 13, 211) 100%);
-  color: rgb(255, 255, 255);
+  color: $clr4;
   padding: 1em;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  text-align: center;
 
   .nav-links {
     display: flex;
     gap: 20px;
-  }
 
-  .nav-links a {
-    color: rgb(255, 255, 255);
-    padding: 8px 0;
+    a {
+      color: $clr4;
+      padding: 8px 0;
+    }
   }
 }

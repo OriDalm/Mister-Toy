@@ -1,0 +1,49 @@
+/* Media queries Breakpoint mixins */
+
+@mixin for-mobile-layout {
+  @media (max-width: $break-narrow) {
+    @content;
+  }
+}
+
+@mixin for-narrow-layout {
+  @media (min-width: $break-narrow) {
+    @content;
+  }
+}
+
+@mixin for-normal-layout {
+  @media (min-width: $break-normal) {
+    @content;
+  }
+}
+
+@mixin for-wide-layout {
+  @media (min-width: $break-wide) {
+    @content;
+  }
+}
+
+@mixin layoutGTC($max) {
+  grid-template-columns: minmax($layoutPadding, 1fr) minmax(auto, $max) minmax($layoutPadding, 1fr);
+}
+
+@mixin btn($bgc: $clr5) {
+  border: none;
+  color: $clr4;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: $bgc;
+
+  &:hover {
+    background-color: darken($bgc, 10%);
+  }
+}
+
+@mixin small-title($color) {
+  font-size: 1.2rem;
+  letter-spacing: 0.05rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: $color;
+}

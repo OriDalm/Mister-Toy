@@ -1,100 +1,75 @@
 .toy-preview {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    position: relative; 
-    transition: background-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+
+  &:before {
+    content: '';
+    position: absolute;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s;
+    padding: 0;
     border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-
-
-
-    &:before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0); 
-        transition: background-color 0.3s; 
-        padding: 0;
-        border-radius: 5px;
-
-      }
-      
-      &:hover::before {
-        background-color: rgba(0, 0, 0, 0.438);
-      }
-      
   }
+
+  &:hover::before {
+    background-color: rgba(0, 0, 0, 0.438);
+  }
+}
 
 .toy-preview .details-container {
-    height: 100%;
-    display: grid;
-    grid-template-rows: 30px 40px 60px 40px;
-    align-items: center;
-  }
+  height: 100%;
+  display: grid;
+  grid-template-rows: 30px 40px 60px 40px;
+  align-items: center;
+}
 
-  .toy-price {
-    grid-row: 2;
-  }
+.toy-price {
+  grid-row: 2;
+}
 
 .label-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 20px;
-    
-    .label {
-        margin: 0;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 20px;
+
+  .label {
+    margin: 0;
+  }
 }
 
-.details-container{
-    padding: 15px;
-
+.details-container {
+  padding: 15px;
 }
-  
+
 .name-container {
-    margin-top: 15px;
+  margin-top: 15px;
 
-    .toy-name{
-        margin: 0;
-    }
-    
-    .toy-stock{
-        margin: 0;
-    }
+  .toy-name {
+    margin: 0;
+  }
+
+  .toy-stock {
+    margin: 0;
+  }
 }
 
 .btn-container {
-
-    .btn-remove, .btn-edit{
-        width: 70px;
-        height: 30px;
-        border: none;
-        color: #fff;
-        border-radius: 5px;
-        cursor: pointer;
-        padding: 5px 10px;
-
-    }
-    .btn-remove{
-        background-color: $clr1;
-
-        &:hover{
-            background-color: darken($clr1, 10%);
-        }
-    }
-    .btn-edit{
-        background-color: $clr3;
-
-        &:hover{
-            background-color: darken($clr3, 10%);
-        }
-    }
+  .btn-remove {
+    @include btn($clr1);
+  }
+  .btn-edit {
+    @include btn($clr3);
+  }
 }
-  

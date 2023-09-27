@@ -1,4 +1,4 @@
-import profitImage from '../assets/img/profit.png'
+import profitImage from '../assets/img/profit2.png'
 
 export function Profit() {
   return (

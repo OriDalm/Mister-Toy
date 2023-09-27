@@ -27,7 +27,7 @@ export function VerticalChart() {
       {
         label: 'Earnings',
         data: [1557, 830, 450, 1820, 2057, 5013, 4753],
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        backgroundColor: 'rgba(65, 65, 209)',
       },
     ],
   }

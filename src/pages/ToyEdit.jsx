@@ -63,7 +63,7 @@ export function ToyEdit() {
         name: values.name,
         price: values.price,
         labels: selectedLabels,
-        inStock: toyToEdit.inStock === 'true' ? true : false,
+        inStock: toyToEdit.inStock === 'false' ? false : true,
       })
       .then(() => navigate('/toy'))
       .catch((err) => {

@@ -53,8 +53,8 @@ export function PriceChart() {
       {
         label: 'Prices',
         data: generateRandomData(),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: 'rgb(65, 65, 209)',
+        backgroundColor: 'rgba(65, 65, 209)',
       },
     ],
   }

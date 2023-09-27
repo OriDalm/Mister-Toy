@@ -33,14 +33,25 @@
     }
 
     .invoices-table th {
-      background-color: #ffffff;
-      font-weight: bold;
+      color: gray;
     }
   }
 
   .doughnut-chart-container {
     @include chart($chartWidth);
     grid-row: 2;
+
+    .doughnut-text {
+      align-self: center;
+      font-size: 10px;
+      color: gray;
+      border-radius: 5px;
+
+      .doughnut-profit {
+        font-size: 28px;
+        color: #4caf50;
+      }
+    }
   }
 
   .vertical-chart-container {

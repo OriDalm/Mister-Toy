@@ -1,27 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, RadialLinearScale } from 'chart.js'
 import { Doughnut, PolarArea } from 'react-chartjs-2'
-import { toyService } from '../services/toy.service'
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend)
 
 export function LabelsChart() {
-  const [labelCounts, setLabelCounts] = useState([])
-
-  useEffect(() => {
-    const fetchLabelCounts = async () => {
-      const labelCounts = await toyService.getLabelCounts()
-      setLabelCounts(labelCounts)
-    }
-
-    fetchLabelCounts()
-  }, [])
-
   const data = {
-    labels: labelCounts.map((labelCount) => labelCount.label),
+    labels: ['Transactions', 'Payouts', 'Sales', 'Reports'],
     datasets: [
       {
         label: '# of Toys',
-        data: labelCounts.map((labelCount) => labelCount.count),
+        data: [452, 412, 715, 128],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -44,8 +32,9 @@ export function LabelsChart() {
   }
 
   return (
-    <section style={{ margin: 'auto', position: 'relative', height: '40vh', width: '80vw' }}>
+    <div className='doughnut-chart-container flex'>
       <Doughnut data={data} />
-    </section>
+      <p>+15%</p>
+    </div>
   )
 }

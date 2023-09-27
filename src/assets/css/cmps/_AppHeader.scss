@@ -1,7 +1,18 @@
 .app-header {
-  background-image: linear-gradient(-86deg, #1d8ecf 0, rgb(132, 13, 211) 100%);
+  background-color: #aa91c2;
   color: $clr4;
-  padding: 1em;
+  padding: 0 1em 0 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+
+  .logo {
+    font-size: 2em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: rem(2px);
+  }
 
   .nav-links {
     display: flex;
@@ -9,7 +20,14 @@
 
     a {
       color: $clr4;
-      padding: 8px 0;
+      text-decoration: none;
+      padding: rem(8px) rem(12px);
+      border-radius: rem(5px);
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #9677b3;
+      }
     }
   }
 }

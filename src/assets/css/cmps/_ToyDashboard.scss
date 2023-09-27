@@ -1,4 +1,91 @@
-.charts-container{
-    justify-content: center;
+.charts-container {
+  margin-top: rem(10px);
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-row-gap: rem(10px);
+
+  .invoices-container {
+    background-color: #ffffff;
+    @include chart(100%);
+    grid-row: 2;
+    grid-column: span 2;
+
+    .invoices-title {
+      padding-left: rem(10px);
+    }
+
+    .invoices-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .invoices-table th,
+    .invoices-table td {
+      border: none;
+      padding: rem(10px);
+      text-align: left;
+
+      &.more {
+        cursor: pointer;
+        color: rgb(50, 50, 207);
+      }
+    }
+
+    .invoices-table th {
+      background-color: #ffffff;
+      font-weight: bold;
+    }
+  }
+
+  .doughnut-chart-container {
+    @include chart($chartWidth);
+    grid-row: 2;
+  }
+
+  .vertical-chart-container {
+    @include chart($chartWidth);
+    grid-row: 1;
+  }
+
+  .line-chart-container {
+    @include chart($chartWidth);
+    grid-row: 1;
+  }
+
+  .profit-container {
+    @include chart($chartWidth);
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+
+    .profit-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .profit-img {
+        width: rem(150px);
+        margin-bottom: rem(15px);
+      }
+
+      .profit-percent {
+        font-size: 1.2em;
+        color: #4caf50;
+      }
+
+      .profit-amount {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+
+    .profit-title {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+  }
 }

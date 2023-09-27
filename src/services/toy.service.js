@@ -13,7 +13,6 @@ export const toyService = {
   save,
   getEmptyToy,
   getToyLabels,
-  getLabelCounts,
 }
 
 function query(filterBy, sort) {
@@ -66,27 +65,4 @@ function getEmptyToy() {
 
 function getToyLabels() {
   return labels
-}
-
-function getLabelCounts() {
-  return httpService.get('toy', { params: { filterBy, sort } }).then((toys) => {
-    const labelCounts = {}
-
-    toys.forEach((toy) => {
-      toy.labels.forEach((label) => {
-        if (labelCounts[label]) {
-          labelCounts[label]++
-        } else {
-          labelCounts[label] = 1
-        }
-      })
-    })
-
-    const labelCountArray = Object.entries(labelCounts).map(([label, count]) => ({
-      label,
-      count,
-    }))
-
-    return labelCountArray
-  })
 }

@@ -16,6 +16,7 @@ ChartJS.register(CategoryScale, RadialLinearScale, ArcElement, LinearScale, Poin
 
 export function PriceChart() {
   const options = {
+    maintainAspectRatio: false,
     responsive: true,
     plugins: {
       legend: {
@@ -59,7 +60,7 @@ export function PriceChart() {
   }
 
   return (
-    <section style={{ margin: 'auto', position: 'relative', height: '40vh', width: '80vw' }}>
+    <section className='line-chart-container'>
       <Line options={options} data={data} />
     </section>
   )

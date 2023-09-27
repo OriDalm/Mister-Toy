@@ -1,39 +1,39 @@
 .toy-index-container {
-  max-width: 800px;
+  max-width: rem(800px);
   margin: 0 auto;
-  padding: 20px;
+  padding: rem(20px);
   background-color: #f7f7f7;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: rem(5px);
+  box-shadow: 0 0 rem(5px) rgba(0, 0, 0, 0.2);
 }
 
 h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: rem(24px);
+  margin-bottom: rem(20px);
 }
 
 main {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: rem(20px);
 }
 
 .filter-sort-container {
   display: flex;
   background-color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  padding: rem(10px);
+  border-radius: rem(5px);
+  box-shadow: 0px 0px rem(5px) rgba(0, 0, 0, 0.1);
 }
 
 .add-toy {
-  width: 250px;
+  width: rem(250px);
   display: inline;
   background-color: #007bff;
   color: $clr4;
-  padding: 10px 20px;
+  padding: rem(10px) rem(20px);
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: rem(5px);
   font-weight: bold;
   text-align: center;
   transition: background-color 0.3s ease;

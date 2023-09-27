@@ -72,41 +72,39 @@ export function ToyFilter({ filterBy, onSetFilter }) {
 
   return (
     <section className='toy-filter'>
-      <div className='filter-input-wrapper flex'>
-        <FormControl as={CustomInput} type='text' name='name' id='name' placeholder='By name' value={name} onChange={handleChange}></FormControl>
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id='demo-simple-select-label'>Stock</InputLabel>
-            <Select labelId='demo-simple-select-label' id='demo-simple-select' value={inStock} label='Stock' name='inStock' onChange={handleChange}>
-              <MenuItem value=''>All</MenuItem>
-              <MenuItem value='true'>In stock</MenuItem>
-              <MenuItem value='false'>Not in stock</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
-          <Select
-            labelId='demo-multiple-checkbox-label'
-            id='demo-multiple-checkbox'
-            multiple
-            name='labels'
-            value={labels}
-            onChange={handleChange}
-            input={<OutlinedInput label='Tag' />}
-            renderValue={(selected) => selected.join(', ')}
-            MenuProps={MenuProps}
-          >
-            {toyLabels.map((toyLabel) => (
-              <MenuItem key={toyLabel} value={toyLabel}>
-                <Checkbox checked={labels.indexOf(toyLabel) > -1} />
-                <ListItemText primary={toyLabel} />
-              </MenuItem>
-            ))}
+      <FormControl as={CustomInput} type='text' name='name' id='name' placeholder='By name' value={name} onChange={handleChange}></FormControl>
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel id='demo-simple-select-label'>Stock</InputLabel>
+          <Select labelId='demo-simple-select-label' id='demo-simple-select' value={inStock} label='Stock' name='inStock' onChange={handleChange}>
+            <MenuItem value=''>All</MenuItem>
+            <MenuItem value='true'>In stock</MenuItem>
+            <MenuItem value='false'>Not in stock</MenuItem>
           </Select>
         </FormControl>
-      </div>
+      </Box>
+
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
+        <Select
+          labelId='demo-multiple-checkbox-label'
+          id='demo-multiple-checkbox'
+          multiple
+          name='labels'
+          value={labels}
+          onChange={handleChange}
+          input={<OutlinedInput label='Tag' />}
+          renderValue={(selected) => selected.join(', ')}
+          MenuProps={MenuProps}
+        >
+          {toyLabels.map((toyLabel) => (
+            <MenuItem key={toyLabel} value={toyLabel}>
+              <Checkbox checked={labels.indexOf(toyLabel) > -1} />
+              <ListItemText primary={toyLabel} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </section>
   )
 }

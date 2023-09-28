@@ -21,16 +21,14 @@ export function ToyIndex() {
     })
   }, [filterBy, sortBy])
 
-  function onRemoveToy(toyId) {
-    // removeToy(toyId)
-    removeToyOptimistic(toyId)
-      .then(() => {
-        showSuccessMsg('Toy removed')
-      })
-      .catch((err) => {
-        console.log('Cannot remove toy', err)
-        showErrorMsg('Cannot remove toy')
-      })
+  async function onRemoveToy(toyId) {
+    try {
+      const res = await removeToyOptimistic(toyId)
+      showSuccessMsg('Toy removed')
+    } catch (err) {
+      console.log(err)
+      showErrorMsg('Cannot remove toy')
+    }
   }
 
   function onSetFilter(filterBy) {

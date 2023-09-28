@@ -29,6 +29,7 @@
 }
 
 @mixin btn($bgc: $clr5) {
+  z-index: 20;
   border: none;
   color: $clr4;
   border-radius: 5px;

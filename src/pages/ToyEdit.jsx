@@ -1,6 +1,6 @@
 import { toyService } from '../services/toy.service.js'
 import { showErrorMsg } from '../services/event-bus.service.js'
-
+import { saveToy } from '../store/actions/toy.actions.js'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { MultiSelect } from '../cmps/MultiSelect.jsx'
@@ -26,18 +26,16 @@ export function ToyEdit() {
     if (params.toyId) loadToy()
   }, [])
 
-  function loadToy() {
-    toyService
-      .getById(params.toyId)
-      .then((toy) => {
-        setToyToEdit(toy)
-        setSelectedLabels(toy.labels || [])
-      })
-      .catch((err) => {
-        console.log('Had issued in toy edit:', err)
-        navigate('/toy')
-        showErrorMsg('Toy not found!')
-      })
+  async function loadToy() {
+    try {
+      const toy = await toyService.getById(params.toyId)
+      setToyToEdit(toy)
+      setSelectedLabels(toy.labels || [])
+    } catch (err) {
+      console.log('Had issued in toy edit:', err)
+      navigate('/toy')
+      showErrorMsg('Toy not found!')
+    }
   }
 
   function onSetLabels(labels) {
@@ -56,21 +54,27 @@ export function ToyEdit() {
     return toyToEdit.inStock
   }
 
-  function onSaveToy(values) {
-    toyService
-      .save({
-        ...toyToEdit,
-        name: values.name,
-        price: values.price,
-        labels: selectedLabels,
-        inStock: toyToEdit.inStock === 'false' ? false : true,
-      })
-      .then(() => navigate('/toy'))
-      .catch((err) => {
-        showErrorMsg('Cannot save toy', err)
-      })
+  async function onSaveToy(values) {
+    console.log('adsgadg')
+    const newToy = {
+      ...toyToEdit,
+      name: values.name,
+      price: values.price,
+      labels: selectedLabels,
+      inStock: toyToEdit.inStock === 'false' ? false : true,
+    }
+
+    try {
+      const res = await saveToy(newToy)
+      console.log(res)
+      navigate('/toy')
+
+      console.log(toyToEdit)
+    } catch {
+      err
+      showErrorMsg('Cannot save toy', err)
+    }
   }
-  const { name, price } = toyToEdit
 
   return (
     <div className='toy-edit'>

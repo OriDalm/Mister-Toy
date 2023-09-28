@@ -28,6 +28,7 @@ function remove(toyId) {
 }
 
 function save(toy) {
+  console.log(toy)
   if (toy._id) {
     return httpService.put(`toy/${toy._id}`, toy)
   } else {
@@ -37,7 +38,6 @@ function save(toy) {
 
 function getEmptyToy() {
   return {
-    _id: '',
     name: '',
     price: '',
     labels: [],

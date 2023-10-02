@@ -4,17 +4,20 @@ import { toyService } from '../services/toy.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { utilService } from '../services/util.service.js'
 import { reviewService } from '../services/review.service.js'
+import { useSelector } from 'react-redux'
 
 export function ToyDetails() {
   const [msg, setMsg] = useState(utilService.getEmptyMsg())
   const [review, setReview] = useState(utilService.getEmptyReview())
   const [toy, setToy] = useState(null)
-  const [reviews, setReviews] = useState([])
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
   const { toyId } = useParams()
   const navigate = useNavigate()
+  const [reviews, setReviews] = useState([])
 
   useEffect(() => {
     loadToys()
+    loadReviews()
   }, [toyId])
 
   function handleMsgChange(ev) {
@@ -52,10 +55,13 @@ export function ToyDetails() {
   async function onSaveReview(ev) {
     ev.preventDefault()
     const savedReview = await reviewService.add({ txt: review.txt, aboutToyId: toy._id })
+    console.log('savedReview', savedReview)
     setToy((prevToy) => ({
       ...prevToy,
       reviews: [...(prevToy.reviews || []), savedReview],
     }))
+
+    console.log(toy)
     setReview(utilService.getEmptyReview())
     showSuccessMsg('Review saved!')
   }

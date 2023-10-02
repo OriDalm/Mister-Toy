@@ -8,106 +8,95 @@ import { addReview, getActionAddReview, loadReviews, removeReview } from '../sto
 import { loadUsers } from '../store/actions/user.actions'
 
 export function ReviewExplore() {
-    const users = useSelector(storeState => storeState.userModule.users)
-    const loggedInUser = useSelector(storeState => storeState.userModule.user)
-    const reviews = useSelector(storeState => storeState.reviewModule.reviews)
+  const users = useSelector((storeState) => storeState.userModule.users)
+  const loggedInUser = useSelector((storeState) => storeState.userModule.user)
+  const reviews = useSelector((storeState) => storeState.reviewModule.reviews)
 
-    const [reviewToEdit, setReviewToEdit] = useState({ txt: '', aboutToyId: '' })
+  const [reviewToEdit, setReviewToEdit] = useState({ txt: '', aboutToyId: '' })
 
-    // const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
-    useEffect(() => {
-        loadReviews()
-        loadUsers()
+  useEffect(() => {
+    loadReviews()
+    loadUsers()
 
-        // socketService.on(SOCKET_EVENT_REVIEW_ADDED, (review) => {
-        //     console.log('GOT from socket', review)
-        //     dispatch(getActionAddReview(review))
-        // })
+    // socketService.on(SOCKET_EVENT_REVIEW_ADDED, (review) => {
+    //     console.log('GOT from socket', review)
+    //     dispatch(getActionAddReview(review))
+    // })
 
-        // return () => {
-        //     socketService.off(SOCKET_EVENT_REVIEW_ADDED)
-        // }
-    }, [])
+    // return () => {
+    //     socketService.off(SOCKET_EVENT_REVIEW_ADDED)
+    // }
+  }, [])
 
-    const handleChange = ev => {
-        const { name, value } = ev.target
-        setReviewToEdit({ ...reviewToEdit, [name]: value })
+  const handleChange = (ev) => {
+    const { name, value } = ev.target
+    setReviewToEdit({ ...reviewToEdit, [name]: value })
+  }
+
+  const onAddReview = async (ev) => {
+    ev.preventDefault()
+    if (!reviewToEdit.txt || !reviewToEdit.aboutToyId) return alert('All fields are required')
+    try {
+      await addReview(reviewToEdit)
+      showSuccessMsg('Review added')
+      setReviewToEdit({ txt: '', aboutToyId: '' })
+    } catch (err) {
+      showErrorMsg('Cannot add review')
     }
+  }
 
-    const onAddReview = async ev => {
-        ev.preventDefault()
-        if (!reviewToEdit.txt || !reviewToEdit.aboutToyId) return alert('All fields are required')
-        try {
-
-            await addReview(reviewToEdit)
-            showSuccessMsg('Review added')
-            setReviewToEdit({ txt: '', aboutToyId: '' })
-        } catch (err) {
-            showErrorMsg('Cannot add review')
-        }
+  const onRemove = async (reviewId) => {
+    try {
+      await removeReview(reviewId)
+      showSuccessMsg('Review removed')
+    } catch (err) {
+      showErrorMsg('Cannot remove')
     }
+  }
 
-    const onRemove = async reviewId => {
-        try {
-            await removeReview(reviewId)
-            showSuccessMsg('Review removed')
-        } catch (err) {
-            showErrorMsg('Cannot remove')
-        }
-    }
+  function canRemove(review) {
+    if (!loggedInUser) return false
+    return review.byUser._id === loggedInUser._id || loggedInUser.isAdmin
+  }
 
-    function canRemove(review) {
-        if (!loggedInUser) return false
-        return review.byUser._id === loggedInUser._id || loggedInUser.isAdmin
-    }
-
-    return (
-        <div className="review-explore">
-            <h1>Reviews and Gossip</h1>
-            {reviews && <ul className="review-list">
-                {reviews.map(review => (
-                    <li key={review._id}>
-                        {canRemove(review) &&
-                            <button onClick={() => onRemove(review._id)}>X</button>}
-                        <p>
-                            About:
-                            <Link to={`/user/${review.aboutToy._id}`}>
-                                {review.aboutToy.name}
-                            </Link>
-                        </p>
-                        <h3>{review.txt}</h3>
-                        <p>
-                            By:
-                            <Link to={`/user/${review.byUser._id}`}>
-                                {review.byUser.fullname}
-                            </Link>
-                        </p>
-                    </li>
-                ))}
-            </ul>}
-            {users && loggedInUser &&
-                <form onSubmit={onAddReview}>
-                    <select
-                        onChange={handleChange}
-                        value={reviewToEdit.aboutToyId}
-                        name="aboutToyId"
-                    >
-                        <option value="">Select User</option>
-                        {users.map(user => (
-                            <option key={user._id} value={user._id}>
-                                {user.fullname}
-                            </option>
-                        ))}
-                    </select>
-                    <textarea
-                        name="txt"
-                        onChange={handleChange}
-                        value={reviewToEdit.txt}
-                    ></textarea>
-                    <button>Add</button>
-                </form>}
-            <hr />
-        </div>
-    )
+  return (
+    <div className='review-explore'>
+      <h1>Reviews and Gossip</h1>
+      {reviews && (
+        <ul className='review-list'>
+          {reviews.map((review) => (
+            <li key={review._id}>
+              {canRemove(review) && <button onClick={() => onRemove(review._id)}>X</button>}
+              <p>
+                About:
+                <Link to={`/user/${review.aboutToy._id}`}>{review.aboutToy.name}</Link>
+              </p>
+              <h3>{review.txt}</h3>
+              <p>
+                By:
+                <Link to={`/user/${review.byUser._id}`}>{review.byUser.fullname}</Link>
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+      {users && loggedInUser && (
+        <form onSubmit={onAddReview}>
+          <select onChange={handleChange} value={reviewToEdit.aboutToyId} name='aboutToyId'>
+            <option value=''>Select User</option>
+            {users.map((user) => (
+              <option key={user._id} value={user._id}>
+                {user.fullname}
+              </option>
+            ))}
+          </select>
+          <textarea name='txt' onChange={handleChange} value={reviewToEdit.txt}></textarea>
+          <button>Add</button>
+        </form>
+      )}
+      <hr />
+    </div>
+  )
 }

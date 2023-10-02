@@ -2,24 +2,22 @@ import { httpService } from './http.service'
 import { storageService } from './async-storage.service'
 import { userService } from './user.service'
 
-
 export const reviewService = {
   add,
   query,
-  remove
+  remove,
 }
 
 function query(filterBy) {
-  var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`;
-  console.log(filterBy);
+  var queryStr = !filterBy ? '' : `?name=${filterBy.name}&sort=anaAref`
+  console.log(filterBy)
   if (filterBy.aboutToyId) {
-    queryStr += `&aboutToyId=${filterBy.aboutToyId}`;
+    queryStr += `&aboutToyId=${filterBy.aboutToyId}`
   }
 
-  return httpService.get(`review`, filterBy);
+  return httpService.get(`review`, filterBy)
   // return httpService.get(`review${queryStr}`);
 }
-
 
 async function remove(reviewId) {
   await httpService.delete(`review/${reviewId}`)
@@ -28,6 +26,7 @@ async function remove(reviewId) {
 
 async function add({ txt, aboutToyId }) {
   const addedReview = await httpService.post(`review`, { txt, aboutToyId })
+  console.log('addedReview', addedReview)
 
   // const aboutUser = await userService.getById(aboutUserId)
 

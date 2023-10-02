@@ -9,7 +9,7 @@ const positions = [
 ]
 export function ToyMap() {
   const [map, setMap] = useState()
-  const API_KEY = import.meta.env.GOOGLE_MAP_API
+  const API_KEY = import.meta.env.VITE_GOOGLE_MAP_API
 
   return (
     <LoadScript id='script-loader' googleMapsApiKey={API_KEY}>

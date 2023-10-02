@@ -14,7 +14,7 @@ function generateLabelClass(label) {
   return labelColors[label]
 }
 
-export function ToyPreview({ toy, onRemoveToy }) {
+export function ToyPreview({ toy, onRemoveToy, user }) {
   const navigate = useNavigate()
 
   const handleEditClick = (e) => {
@@ -51,14 +51,16 @@ export function ToyPreview({ toy, onRemoveToy }) {
               </h5>
             ))}
         </div>
-        <div className='btn-container justify-between flex'>
-          <button className='btn-edit' onClick={handleEditClick}>
-            Edit
-          </button>
-          <button className='btn-remove' onClick={handleDeleteClick}>
-            Delete
-          </button>
-        </div>
+        {user && user.isAdmin && (
+          <div className='btn-container justify-between flex'>
+            <button className='btn-edit' onClick={handleEditClick}>
+              Edit
+            </button>
+            <button className='btn-remove' onClick={handleDeleteClick}>
+              Delete
+            </button>
+          </div>
+        )}
       </div>
     </article>
   )

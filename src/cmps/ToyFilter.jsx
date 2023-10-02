@@ -13,6 +13,7 @@ import { Formik, Form, Field } from 'formik'
 import { TextField } from '@mui/material'
 import Select from '@mui/material/Select'
 import Box from '@mui/material/Box'
+import { ToySort } from './ToySort.jsx'
 
 function CustomInput(props) {
   return <TextField {...props} id='outlined-basic' variant='outlined' />
@@ -42,7 +43,6 @@ export function ToyFilter({ filterBy, onSetFilter }) {
   function handleChange({ target }) {
     const field = target.name
     let value = target.value
-
     switch (target.type) {
       case 'number':
       case 'range':
@@ -68,7 +68,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
     ev.preventDefault()
     onSetFilter(filterByToEdit)
   }
-  const { name, inStock, labels } = filterByToEdit
+  const { name, inStock, labels, sortBy } = filterByToEdit
 
   return (
     <section className='toy-filter'>
@@ -105,6 +105,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
           ))}
         </Select>
       </FormControl>
+      <ToySort handleChange={handleChange} sortBy={sortBy} />
     </section>
   )
 }

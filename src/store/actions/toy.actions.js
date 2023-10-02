@@ -2,13 +2,13 @@ import { toyService } from '../../services/toy.service.js'
 import { ADD_TOY, TOY_UNDO, SET_FILTER_BY, REMOVE_TOY, SET_TOYS, SET_IS_LOADING, UPDATE_TOY } from '../reducers/toy.reducer.js'
 import { store } from '../store.js'
 
-export async function loadToys(sortBy) {
-  const { filterBy } = store.getState().toyModule
-
+export async function loadToys(filterBy, sortBy) {
+  console.log('heyyyy', sortBy)
+  store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
-    store.dispatch({ type: SET_IS_LOADING, isLoading: true })
     const toys = await toyService.query(filterBy, sortBy)
     store.dispatch({ type: SET_TOYS, toys })
+    return toys
   } catch {
     console.log('toy action -> Cannot load toys', err)
     throw err

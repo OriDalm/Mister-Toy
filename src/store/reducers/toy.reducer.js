@@ -10,6 +10,7 @@ export const SET_FILTER_BY = 'SET_FILTER_BY'
 const initialState = {
   toys: [],
   lastToys: [],
+  filterBy: toyService.getDefaultFilter(),
 }
 
 export function toyReducer(state = initialState, action = {}) {

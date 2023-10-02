@@ -5,34 +5,33 @@ import { useEffect, useState } from 'react'
 import { ToyList } from '../cmps/ToyList.jsx'
 import { Link } from 'react-router-dom'
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
-import { ToySort } from '../cmps/ToySort.jsx'
+import { SET_FILTER_BY } from '../store/reducers/toy.reducer.js'
 
 export function ToyIndex() {
   const dispatch = useDispatch()
   const toys = useSelector((storeState) => storeState.toyModule.toys)
   const filterBy = useSelector((storeState) => storeState.toyModule.filterBy)
   const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
-  const [sortBy, setSortBy] = useState({ type: '', desc: -1 })
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
 
   useEffect(() => {
-    loadToys(sortBy).catch((err) => {
-      console.log('err:', err)
+    loadToys(filterBy).catch(() => {
       showErrorMsg('Cannot load toys')
     })
-  }, [filterBy, sortBy])
+  }, [filterBy])
 
   async function onRemoveToy(toyId) {
     try {
       const res = await removeToyOptimistic(toyId)
       showSuccessMsg('Toy removed')
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       showErrorMsg('Cannot remove toy')
     }
   }
 
   function onSetFilter(filterBy) {
-    setFilterBy(filterBy)
+    dispatch({ type: SET_FILTER_BY, filterBy })
   }
 
   return (
@@ -40,12 +39,11 @@ export function ToyIndex() {
       <main>
         <div className='filter-sort-container'>
           <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-          <ToySort sortBy={sortBy} setSortBy={setSortBy} />
         </div>
         <Link className='add-toy' to='/toy/edit'>
           Add Toy
         </Link>
-        <ToyList toys={toys} onRemoveToy={onRemoveToy} />
+        <ToyList toys={toys} user={user} onRemoveToy={onRemoveToy} />
       </main>
     </div>
   )

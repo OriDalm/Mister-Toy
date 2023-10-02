@@ -12,6 +12,8 @@ import { AppHeader } from './cmps/AppHeader'
 import { HomePage } from './pages/HomePage'
 import { AboutUs } from './pages/AboutUs'
 import { ToyDashboard } from './pages/ToyDashboard'
+import { UserMsg } from './cmps/UserMsg'
+import { ReviewExplore } from './pages/ReviewExplore'
 
 export function App() {
   return (
@@ -26,6 +28,7 @@ export function App() {
               <Route element={<ToyDashboard />} path='/dashboard' />
               <Route element={<ToyIndex />} path='/toy' />
               <Route element={<ToyDetails />} path='/toy/details/:toyId' />
+              <Route element={<ReviewExplore />} path='/review' />
               <Route element={<ToyEdit />} path='/toy/edit/:toyId' />
               <Route element={<ToyEdit />} path='/toy/edit' />
               <Route element={<MultipleSelectCheckmarks />} path='/dropdown' />
@@ -33,6 +36,7 @@ export function App() {
           </main>
           {/* <AppFooter /> */}
         </section>
+        <UserMsg />
       </Router>
     </Provider>
   )

@@ -8,6 +8,8 @@ export const utilService = {
   debounce,
   getAssetSrc,
   getSortedToys,
+  getEmptyMsg,
+  getEmptyReview,
 }
 
 function makeId(length = 6) {
@@ -126,4 +128,15 @@ function getSortedToys(toysToSort, sortBy) {
     toysToSort.sort((b1, b2) => sortBy.desc * (b2[sortBy.type] - b1[sortBy.type]))
   }
   return toysToSort
+}
+
+function getEmptyMsg() {
+  return {
+    txt: '',
+  }
+}
+function getEmptyReview() {
+  return {
+    txt: '',
+  }
 }
